@@ -1,5 +1,5 @@
 local screen = {
-    _VERSION     = 'v1.0.0',
+    _VERSION     = 'v1.1.0',
     _DESCRIPTION = ' pixel-perfect screen for LÖVE ',
     _URL         = 'https://github.com/floweysensie/Love-Screen',
     _LICENSE     = [[
@@ -27,15 +27,40 @@ local screen = {
     ]]
 }
 
-function screen.init(w, h)
+function screen.init(w, h, settings)
     screen.gameWidth = w
     screen.gameHeight = h
+
+    settings = settings or {}
+    screen.filter = settings.filter or "nearest" 
+    screen.pixelPerfect = (settings.pixelPerfect ~= false)
+
     love.graphics.setDefaultFilter("nearest", "nearest")
     screen.canvas = love.graphics.newCanvas(screen.gameWidth, screen.gameHeight)
     screen.canvas:setFilter("nearest", "nearest")
+
     screen.scale = 1
     screen.ox = 0
     screen.oy = 0
+    screen.updateLayout()
+end
+
+function screen.updateLayout()
+    local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
+    if screen.pixelPerfect then
+        screen.scale = math.floor(math.min(sw / screen.gameWidth, sh / screen.gameHeight))
+        screen.scale = math.max(1, screen.scale)
+    else
+        screen.scale = math.min(sw / screen.gameWidth, sh / screen.gameHeight)
+    end
+    screen.ox = (sw - screen.gameWidth * screen.scale) / 2
+    screen.oy = (sh - screen.gameHeight * screen.scale) / 2
+end
+
+function screen.toggleFullscreen()
+    local isFull = love.window.getFullscreen()
+    love.window.setFullscreen(not isFull)
+    screen.updateLayout()
 end
 
 function screen.start(r, g, b)
@@ -45,20 +70,24 @@ end
 
 function screen.stop()
     love.graphics.setCanvas()
-    local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
-    screen.scale = math.floor(math.min(sw / screen.gameWidth, sh / screen.gameHeight))
-    screen.scale = math.max(1, screen.scale)
-    screen.ox = (sw - screen.gameWidth * screen.scale) / 2
-    screen.oy = (sh - screen.gameHeight * screen.scale) / 2
+    screen.updateLayout() 
+    
     love.graphics.draw(screen.canvas,
-    screen.ox, screen.oy, 0,
-    screen.scale, screen.scale)
+        screen.ox, screen.oy, 0,
+        screen.scale, screen.scale)
 end
 
 function screen.getMousePos()
     local mx, my = love.mouse.getPosition()
     local gx = (mx - screen.ox) / screen.scale
     local gy = (my - screen.oy) / screen.scale
+    return gx, gy
+end
+
+function screen.getTouchPos(id)
+    local tx, ty = love.touch.getPosition(id)
+    local gx = (tx - screen.ox) / screen.scale
+    local gy = (ty - screen.oy) / screen.scale
     return gx, gy
 end
 
