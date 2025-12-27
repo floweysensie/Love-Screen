@@ -12,6 +12,16 @@ The Solution: This library automates the scaling process, keeping pixels crisp a
 * Pixel Perfect: Uses integer scaling to keep the pixels crisp.
 * Automatic Centering: Automatically calculates offsets (letterboxing) to center the game.
 * Mouse Mapping: Includes a helper function to translate screen mouse coordinates to the game's virtual coordinates.
+* Flexible Scaling: Choose between Integer Scaling (Pixel Perfect) or Smooth Scaling.
+* Fullscreen Support: Easy toggle with layout recalculation.
+* Mobile Ready: Full support for Touch input
+
+## New in v1.1.0
+
+* **Non-Pixel Perfect Mode:** Disable `pixelPerfect` if you want your game to fill as much screen space as possible without being restricted to whole numbers.
+* **Fullscreen Toggle:** Easy switching with `screen.toggleFullscreen()`.
+* **Mobile Support:** Added `screen.getTouchPos(id)` for touchscreen devices.
+* **Better Performance:** Layout calculations are now centralized in `updateLayout()`.
 
 ## Usage
 
@@ -23,8 +33,13 @@ The Solution: This library automates the scaling process, keeping pixels crisp a
 2. Initialize the screen in `love.load`:
 ```lua
 function love.load()
-    -- Set virtual game resolution
+    -- Simple init
     screen.init(320, 180)
+    -- Advanced init (Default values shown)
+    screen.init(320, 180, {
+        pixelPerfect = true, -- Set to false for smooth/fractional scaling
+        filter = "nearest"   -- Canvas filter ("nearest" or "linear")
+    })
 end
 ```
 
@@ -45,6 +60,20 @@ end
         -- gx and gy are now mapped to your resolution
     end
     
+```
+
+5. Handling Window Resizes
+For best performance, call `screen.updateLayout()` inside the `love.resize` callback:
+```lua
+    function love.resize(w, h)
+        screen.updateLayout()
+    end
+    
+    function love.keypressed(key)
+        if key == "f11" then
+            screen.toggleFullscreen()
+        end
+    end
 ```
 
 ## License
