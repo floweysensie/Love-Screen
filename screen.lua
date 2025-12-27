@@ -1,5 +1,5 @@
 local screen = {
-    _VERSION     = 'v1.1.1',
+    _VERSION     = 'v1.1.2',
     _DESCRIPTION = ' pixel-perfect screen for LÖVE ',
     _URL         = 'https://github.com/floweysensie/Love-Screen',
     _LICENSE     = [[
@@ -51,7 +51,7 @@ function screen.updateLayout()
         screen.scale = math.floor(math.min(sw / screen.gameWidth, sh / screen.gameHeight))
         screen.scale = math.max(1, screen.scale)
     else
-        screen.scale = math.min(sw / screen.gameWidth, sh / screen.gameHeight)
+        screen.scale = math.max(2, math.min(sw / screen.gameWidth, sh / screen.gameHeight))
     end
     screen.ox = (sw - screen.gameWidth * screen.scale) / 2
     screen.oy = (sh - screen.gameHeight * screen.scale) / 2
@@ -70,7 +70,7 @@ end
 
 function screen.stop()
     love.graphics.setCanvas()
-    screen.updateLayout() 
+    screen.updateLayout()
     
     love.graphics.draw(screen.canvas,
         screen.ox, screen.oy, 0,
@@ -90,5 +90,3 @@ function screen.getTouchPos(id)
     local gy = (ty - screen.oy) / screen.scale
     return gx, gy
 end
-
-return screen
