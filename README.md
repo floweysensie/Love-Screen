@@ -5,6 +5,7 @@ A lightweight, pixel-perfect screen scaling library for LÖVE (Love2D). It handl
 ## Why use this?
 
 The Problem: Modern screens have high resolutions, but pixel art games are made in low resolutions. Scaling them manually causes blurry pixels or incorrect mouse coordinates.
+
 The Solution: This library automates the scaling process, keeping pixels crisp and mapping mouse inputs perfectly to your game world.
 
 ## Features
