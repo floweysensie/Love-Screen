@@ -1,5 +1,5 @@
 local screen = {
-    _VERSION     = 'v1.1.0',
+    _VERSION     = 'v1.1.1',
     _DESCRIPTION = ' pixel-perfect screen for LÖVE ',
     _URL         = 'https://github.com/floweysensie/Love-Screen',
     _LICENSE     = [[
@@ -33,7 +33,7 @@ function screen.init(w, h, settings)
 
     settings = settings or {}
     screen.filter = settings.filter or "nearest" 
-    screen.pixelPerfect = (settings.pixelPerfect ~= false)
+    screen.pixelPerfect = (settings.pixelPerfect == true)
 
     love.graphics.setDefaultFilter("nearest", "nearest")
     screen.canvas = love.graphics.newCanvas(screen.gameWidth, screen.gameHeight)
