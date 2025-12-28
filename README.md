@@ -36,10 +36,14 @@ The Solution: This library automates the scaling process, keeping pixels crisp a
 function love.load()
     -- Simple init
     screen.init(320, 180)
+
     -- Advanced init (Default values shown)
+    -- Options:
+    -- pixelPerfect: (true/false) Force integer scaling to avoid pixel distortion.
+    -- filter: ("nearest" or "linear") "nearest" is recommended for pixel art.
     screen.init(320, 180, {
-        pixelPerfect = true, -- Set to false for smooth/fractional scaling
-        filter = "nearest"   -- Canvas filter ("nearest" or "linear")
+        pixelPerfect = true,
+        filter = "nearest"
     })
 end
 ```
@@ -47,35 +51,48 @@ end
 3. Wrap your drawing code between start and stop:
 ```lua
     function love.draw()
-        screen.start(0.1, 0.1, 0.1) -- R, G, B for background clear
-            -- Draw game objects here
+        screen.start(0.1, 0.1, 0.1) -- Optional: Clear color
+            -- Draw anything that can be drawn (shapes, pictures, shadows, etc.)
             love.graphics.rectangle("fill", 50, 50, 32, 32)
         screen.stop()
     end
 ```
 
-4. Use getMousePos for accurate mouse input:
-```lua
-    function love.update(dt)
-        local gx, gy = screen.getMousePos()
-        -- gx and gy are now mapped to your resolution
-    end
-    
-```
-
-5. Handling Window Resizes
-For best performance, call `screen.updateLayout()` inside the `love.resize` callback:
+4. Handling Window Resizes
+Crucial: To keep the game centered and scaled correctly when the window changes, you **must** call updateLayout in the resize callback:
 ```lua
     function love.resize(w, h)
         screen.updateLayout()
     end
-    
-    function love.keypressed(key)
-        if key == "f11" then
-            screen.toggleFullscreen()
-        end
-    end
 ```
+
+5. Input Handling (Mouse & Touch)
+Standard love.mouse.getPosition() won't work correctly because of the scaling and offsets. Use the library helpers:
+```lua
+function love.update(dt)
+    -- Get mapped mouse coordinates
+    local gx, gy = screen.getMousePos()
+    
+    -- Note: gx/gy can be negative or larger than game width/height 
+    -- if the mouse is in the "black bars" area.
+end
+
+function love.touchpressed(id, x, y)
+    local tx, ty = screen.getTouchPos(id)
+    -- Use tx, ty for gameplay logic
+end
+```
+
+## API Reference
+| Function | Description |
+|----------|-------------|
+| `screen.init(w, h, settings)` | Sets virtual resolution and scaling mode. |
+| `screen.start(r, g, b)` |	Starts drawing to the canvas and clears it. |
+| `screen.stop()` | Stops drawing and renders the canvas to the window. |
+| `screen.updateLayout()` | Recalculates scaling and offsets (Call on resize). |
+| `screen.toggleFullscreen()` | Toggles fullscreen and updates layout. |
+| `screen.getMousePos()` | Returns `x, y` mapped to the virtual resolution. |
+| `screen.getTouchPos(id)` | Returns `x, y` for a specific touch ID. |
 
 ## License
 
