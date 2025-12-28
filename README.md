@@ -17,6 +17,16 @@ The Solution: This library automates the scaling process, keeping pixels crisp a
 * Fullscreen Support: Easy toggle with layout recalculation.
 * Mobile Ready: Full support for Touch input
 
+## 🕹️ Live Demo
+I've included a space-themed demo to showcase the scaling modes.
+1. Download the `demo` folder.
+2. Run it using LÖVE (Drag the folder onto the love executable).
+3. Controls:
+    * **[SPACE]**: Toggle between Pixel-Perfect and Smooth scaling.
+    * **[F]**: Toggle Fullscreen.
+    * **[Mouse]**: Control the ship.
+    * and You can resize the window of the demo
+
 ## New in v1.1.0
 
 * **Non-Pixel Perfect Mode:** Disable `pixelPerfect` if you want your game to fill as much screen space as possible without being restricted to whole numbers.
