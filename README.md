@@ -17,7 +17,7 @@ The Solution: This library automates the scaling process, keeping pixels crisp a
 * Fullscreen Support: Easy toggle with layout recalculation.
 * Mobile Ready: Full support for Touch input
 
-## 🕹️ Live Demo
+## Live Demo
 I've included a space-themed demo to showcase the scaling modes.
 1. Download the `demo` folder.
 2. Run it using LÖVE (Drag the folder onto the love executable).
