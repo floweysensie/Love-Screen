@@ -19,6 +19,7 @@ The Solution: This library automates the scaling process, keeping pixels crisp a
 
 ## Live Demo
 I've included a space-themed demo to showcase the scaling modes.
+![](resources/LiveDemo.gif)
 1. Download the `demo` folder.
 2. Run it using LÖVE (Drag the folder onto the love executable).
 3. Controls:
