@@ -118,8 +118,8 @@ end
 Then use it with the library:
 ```lua
 local gx, gy = screen.getMousePos()
-gx = math.clamp(0, gx, gameWidth)
-gy = math.clamp(0, gy, gameHeight)
+gx = math.clamp(0, gx, screen.gameWidth)
+gy = math.clamp(0, gy, screen.gameHeight)
 ```
 Why? This ensures your game logic (like clicking a button at 0,0) doesn't break when the user clicks in the letterboxing area.
 
