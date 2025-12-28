@@ -1,7 +1,7 @@
 local screen = {
     _VERSION     = 'v1.1.3',
     _DESCRIPTION = ' pixel-perfect screen for LÖVE ',
-    _URL         = 'https://github.com/floweysensie/Love-Screen',
+    _URL         = 'https://github.com/floweysensie/Love-Res',
     _LICENSE     = [[
         MIT License
 
