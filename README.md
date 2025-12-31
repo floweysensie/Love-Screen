@@ -1,6 +1,6 @@
 # Love-Res
 
-A lightweight, pixel-perfect screen scaling library for LÖVE (Love2D). It handles virtual resolution, letterboxing (black bars), and mouse coordinate mapping.
+A pixel-perfect screen helper for LÖVE (love2d). Handles integer scaling, letterboxing/black bars, and fullscreen without blurry upscaling.
 
 ## Why use this?
 
