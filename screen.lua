@@ -5,7 +5,7 @@ local screen = {
     _LICENSE     = [[
         MIT License
 
-        Copyright (c) 2025 FloweySensie
+        Copyright (c) 2026 FloweySensie
 
         Permission is hereby granted, free of charge, to any person obtaining a copy
         of this software and associated documentation files (the "Software"), to deal
